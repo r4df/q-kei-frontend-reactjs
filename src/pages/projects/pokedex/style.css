@@ -1,0 +1,33 @@
+/* https://colorhunt.co/palette/22177a605ea18ea3a6e6e9af */
+
+[class^="pokedex-pd-type-"] {
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.pokedex-pd-type-water {
+  background-color: #2880ee;
+}
+
+.pokedex-pd-type-normal {
+  background-color: #9fa19f;
+}
+
+.pokedex-pd-type-grass {
+  background-color: #3fa129;
+}
+
+.pokedex-pd-type-psychic {
+  background-color: #ee4178;
+}
+
+.pokedex-pd-type-fire {
+  background-color: #e52728;
+}
+
+.pokedex-pd-type-electric {
+  background-color: #fabf00;
+}

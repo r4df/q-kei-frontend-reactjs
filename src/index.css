@@ -1,0 +1,29 @@
+/* https://colorhunt.co/palette/ebe8dbd76c82b030523d0301 */
+
+:root {
+    --pallette-1 : #EBE8DB;
+    --pallette-2 :#D76C82;
+    --pallette-3 : #B03052;
+    --pallette-4 : #3D0301;
+}
+
+body{
+    background-color: var(--pallette-3);
+}
+
+div.app-bg-pallette-1{
+    background-color: var(--pallette-1);
+}
+
+.app-bg-pallette-3 {
+    background-color: var(--pallette-3);
+}
+
+.app-bg-pallette-4 {
+    background-color: var(--pallette-4);
+}
+
+@font-face {
+    font-family: "zx-spectrum";
+    src: URL("/src/assets/fonts/zx_spectrum/zx-spectrum.ttf") format("truetype");
+}

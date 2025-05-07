@@ -1,0 +1,38 @@
+[
+    {
+        "PN":"1",
+        "Icon":"./assets/pages/home/icons/icons8-pokedex-100.png",
+        "Title":"Pokedex",
+        "Description":"Simple pokedex.",
+        "Status":"完了",
+        "LastUpdate":"",
+        "Link":"/projects/pokedex"
+    },
+    {
+        "PN":"2",
+        "Icon":"./assets/pages/home/icons/icons8-tic-tac-toe-100.png",
+        "Title":"TicTacToe",
+        "Description":"PvP Only.",
+        "Status":"完了",
+        "LastUpdate":"",
+        "Link":"/projects/tictactoe"
+    },
+    {
+        "PN":"3",
+        "Icon":"./assets/pages/home/icons/icons8-to-do-list.gif",
+        "Title":"ToDo List",
+        "Description":"No database attached. All inputs will be vanished on refresh.",
+        "Status":"停止",
+        "LastUpdate":"",
+        "Link":""
+    },
+    {
+        "PN":"4",
+        "Icon":"./assets/pages/home/icons/icons8-tic-tac-toe-100.png",
+        "Title":"TicTacToe + AI",
+        "Description":"Prototype. AI integrated using Minimax",
+        "Status":"進行中",
+        "LastUpdate":"",
+        "Link":"/projects/tictactoe_ai"
+    }
+]

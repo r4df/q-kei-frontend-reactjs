@@ -30,8 +30,8 @@
         "PN":"4",
         "Icon":"./assets/pages/home/icons/icons8-tic-tac-toe-100.png",
         "Title":"TicTacToe + AI",
-        "Description":"Prototype. AI integrated using Minimax",
-        "Status":"進行中",
+        "Description":"AI integrated (PvCPU)",
+        "Status":"完了",
         "LastUpdate":"",
         "Link":"/projects/tictactoe_ai"
     }

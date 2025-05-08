@@ -60,23 +60,23 @@ function TenkiTomo() {
         const windSpeedMps = convertWindSpeedKphToMps(data.current.wind_kph)
         const dewPoint = calculateDewPtFeature(data.current.temp_c, data.current.humidity)
 
-        // const features = {
-        //     uv_index: data.current.uv,
-        //     cloud_cover: data.current.cloud,
-        //     humidity: data.current.humidity,
-        //     temperature: data.current.temp_c,
-        //     dew_point: dewPoint,
-        //     wind_speed: windSpeedMps
-        // }
-
         const features = {
-            uv_index: 11,
-            cloud_cover: 40,
+            uv_index: data.current.uv,
+            cloud_cover: data.current.cloud,
             humidity: data.current.humidity,
-            temperature: 11,
+            temperature: data.current.temp_c,
             dew_point: dewPoint,
             wind_speed: windSpeedMps
         }
+
+        // const features = {
+        //     uv_index: 11,
+        //     cloud_cover: 40,
+        //     humidity: data.current.humidity,
+        //     temperature: 11,
+        //     dew_point: dewPoint,
+        //     wind_speed: windSpeedMps
+        // }
 
         setWeatherFeatures(features)
         return features

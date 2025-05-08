@@ -46,7 +46,7 @@ function TenkiTomo() {
 
     const getWeatherFeature = async () => {
         const response = await axios.get(
-            `http://api.weatherapi.com/v1/current.json`,
+            `https://api.weatherapi.com/v1/current.json`,
             {
                 params: {
                     key: WEATHER_API_KEY,

@@ -58,7 +58,7 @@ function Home() {
                     <td>{item.PN}</td>
                     <td>
                       <Link to={item.Link} className="d-flex flex-lg-row flex-column align-items-center">
-                        <img src={item.Icon} alt="icon" width={40} height={40} className="border border-1 p-1 mx-2 rounded shadow-sm" />
+                        <img src={item.Icon} alt="icon" width={50} height={50} className="border border-1 p-1 mx-2 rounded shadow-sm" />
                         {item.Title}
                       </Link>
                     </td>

@@ -34,5 +34,14 @@
         "Status":"完了",
         "LastUpdate":"",
         "Link":"/projects/tictactoe_ai"
+    },
+    {
+        "PN":"5",
+        "Icon":"./assets/pages/home/icons/icons8-laundry-100.png",
+        "Title":"Tenki Tomo",
+        "Description":"Weather Assistant",
+        "Status":"進行中",
+        "LastUpdate":"-",
+        "Link":"/projects/tenkitomo"
     }
 ]

@@ -10,17 +10,19 @@ import Projects from "./pages/projects/Projects";
 import PokeDex from "./pages/projects/pokedex/PokeDex"
 import TicTacToe from "./pages/projects/tictactoe/TicTacToe";
 import TicTacToeAi from "./pages/projects/tictactoe_ai/TicTacToe";
+import TenkiTomo from "./pages/projects/tenkitomo/TenkiTomo";
 
 import reportWebVitals from "./reportWebVitals";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min"; // Includes Popper
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./index.css";
 import "./style/icon.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  
   <React.StrictMode>
     <Router>
       <Header />
@@ -33,6 +35,7 @@ root.render(
           <Route path="/projects/pokedex" element={<PokeDex />} />
           <Route path="/projects/tictactoe" element={<TicTacToe />} />
           <Route path="/projects/tictactoe_ai" element={<TicTacToeAi />} />
+          <Route path="/projects/tenkitomo" element={<TenkiTomo />} />
         </Routes>
       </main>
     </Router>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Typewriter } from 'react-simple-typewriter'
+import "./style/style.css"
 import ContainerType1 from '../../../component/ContainerType1'
+import TenkiTomoIcon from './assets/TenkiTomoIcon.png'
 import axios from 'axios'
 import * as bootstrap from 'bootstrap'; // // <-- This gives access to bootstrap.Tooltip
 
@@ -134,14 +136,19 @@ function TenkiTomo() {
     return (
         <div>
             <ContainerType1 className='d-lg-block d-none'>
-                <h1>Tenki Tomo 天気友</h1>
+                <h1>TenkiTomo AI</h1>
             </ContainerType1>
 
             <ContainerType1 style={{ fontFamily: "zx-spectrum" }}>
                 <div className='container col-lg-6'>
-                    <div className='row mb-2'>
-                        <div className='col-12'>
-                            <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
+                    <div className='row g-2'>
+                        <div className='col-3 d-flex'>
+                            <div className='border border-2 border-black rounded-4 bg-dark-subtle flex-fill'>
+                                <img src={TenkiTomoIcon} alt="TenkiTomoIcon" className='bounce-retro-tenkitomo w-100' />
+                            </div>
+                        </div>
+                        <div className='col-9 d-flex'>
+                            <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3 flex-fill'>
                                 <p className='m-0'>
                                     Loc. :
                                 </p>
@@ -155,9 +162,7 @@ function TenkiTomo() {
                                 </p>
                             </div>
                         </div>
-                    </div>
 
-                    <div className='row mb-2'>
                         <div className='col-12'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
 
@@ -169,17 +174,15 @@ function TenkiTomo() {
                                     </p>
                                 ))}
                                 <p>
-                                    {recommendation ?`Drying Time: ${recommendation.drying_time_hours}hrs` :"-"}
+                                    {recommendation ? `Drying Time: ${recommendation.drying_time_hours}hrs` : "-"}
                                 </p>
                                 {dispRecommendation()}
                             </div>
                         </div>
-                    </div>
 
-                    <div className='row'>
                         <div className='col-12'>
                             <button onClick={() => handleClickCheckReco()} className='btn btn-light border border-2 border-black rounded-4 w-100'>
-                                Is It a Good Laundry Day? 🤔
+                                Ask TenkiTomo
                             </button>
                         </div>
                     </div>

@@ -37,7 +37,7 @@
     },
     {
         "PN":"5",
-        "Icon":"./assets/pages/home/icons/icons8-laundry-100.png",
+        "Icon":"./assets/pages/home/icons/TenkiTomoIcon.png",
         "Title":"Tenki Tomo AI",
         "Description":"Intelligent laundry assistant that uses weather data and machine learning to recommend the best times to wash and dry clothes.",
         "Status":"完了",

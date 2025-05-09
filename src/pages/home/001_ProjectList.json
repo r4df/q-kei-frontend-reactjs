@@ -29,7 +29,7 @@
     {
         "PN":"4",
         "Icon":"./assets/pages/home/icons/icons8-tic-tac-toe-100.png",
-        "Title":"TicTacToe + AI",
+        "Title":"TicTacToe AI",
         "Description":"AI integrated (PvCPU)",
         "Status":"完了",
         "LastUpdate":"",
@@ -38,9 +38,9 @@
     {
         "PN":"5",
         "Icon":"./assets/pages/home/icons/icons8-laundry-100.png",
-        "Title":"Tenki Tomo",
-        "Description":"Weather Assistant",
-        "Status":"進行中",
+        "Title":"Tenki Tomo AI",
+        "Description":"Intelligent laundry assistant that uses weather data and machine learning to recommend the best times to wash and dry clothes.",
+        "Status":"完了",
         "LastUpdate":"-",
         "Link":"/projects/tenkitomo"
     }

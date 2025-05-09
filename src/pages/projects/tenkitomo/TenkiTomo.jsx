@@ -46,9 +46,11 @@ function TenkiTomo() {
         })
     }
 
-    const handleClickCheckReco = async () => {
+    const handleClickCheckReco = async () => {     
         const location = await getUserLocation()
         const response = await axios.post(`${API_URL}/api/proj/tenkitomo/predict`, location)
+
+        setLogme(`Loc. : LAT=${location.latitude.toFixed(1)}, LON=${location.longitude.toFixed(1)}`)
         setWeatherFeatures(response.data.weather_feature)
         setRecommendation(response.data)
         return 0
@@ -92,7 +94,7 @@ function TenkiTomo() {
                     <div className='row mb-2'>
                         <div className='col-12'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
-                                <p className=''>{logme}</p>
+                                <p className='m-0'>{logme}</p>
                             </div>
                         </div>
                     </div>
@@ -123,7 +125,7 @@ function TenkiTomo() {
                                 <p data-bs-toggle="tooltip" data-bs-placement="right"
                                     data-bs-custom-class="custom-tooltip"
                                     data-bs-title="A good breeze can help carry away moisture, speeding up drying.">
-                                    Wind Spd. : {weatherFeatures.wind_speed}kph
+                                    Wind Spd. : {weatherFeatures.wind_speed}m/s
                                 </p>
                                 <p data-bs-toggle="tooltip" data-bs-placement="right"
                                     data-bs-custom-class="custom-tooltip"

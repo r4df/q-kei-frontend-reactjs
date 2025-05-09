@@ -9,12 +9,30 @@ import * as bootstrap from 'bootstrap'; // // <-- This gives access to bootstrap
 const API_URL = process.env.REACT_APP_API_URL;
 
 const DEFAULT_FEATURE = {
-    uv_index: 0,
-    cloud_cover: 0,
-    humidity: 0,
-    temperature: 0,
-    dew_point: 0,
-    wind_speed: 0
+    uv_index: {
+        value: 0,
+        status: 0
+    },
+    cloud_cover: {
+        value: 0,
+        status: 0
+    },
+    humidity: {
+        value: 0,
+        status: 0
+    },
+    temperature: {
+        value: 0,
+        status: 0
+    },
+    dew_point: {
+        value: 0,
+        status: 0
+    },
+    wind_speed: {
+        value: 0,
+        status: 0
+    }
 }
 
 const weatherMeta = {
@@ -130,7 +148,19 @@ function TenkiTomo() {
         }
     }
 
+    function getStatusColor(status) {
+        if (status === 1) return "success";
+        if (status === 2) return "secondary";
+        if (status === 3) return "danger";
+        return "dark";
+    }
 
+    function getStatusIcon(status) {
+        if (status === 1) return <i className="bi bi-check-circle-fill me-1"></i>;
+        if (status === 2) return <i className="bi bi-exclamation-triangle-fill me-1"></i>;
+        if (status === 3) return <i className="bi bi-x-octagon-fill me-1"></i>;
+        return <i className="bi bi-dash-circle-dotted me-1"></i>;
+    }
 
 
     return (
@@ -139,9 +169,9 @@ function TenkiTomo() {
                 <h1>TenkiTomo AI</h1>
             </ContainerType1>
 
-            <ContainerType1 style={{ fontFamily: "zx-spectrum" }}>
+            <ContainerType1 style={{ fontFamily: "zx-spectrum", color: "black", fontSize: "small" }}>
                 <div className='container col-lg-6'>
-                    <div className='row g-2'>
+                    <div className='row g-2 text'>
                         <div className='col-3 d-flex'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle flex-fill'>
                                 <img src={TenkiTomoIcon} alt="TenkiTomoIcon" className='bounce-retro-tenkitomo w-100' />
@@ -150,14 +180,15 @@ function TenkiTomo() {
                         <div className='col-9 d-flex'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3 flex-fill'>
                                 <p className='m-0'>
-                                    Loc. :
+                                    Tenki :
                                 </p>
                                 <p className='m-0'>
-                                    @
+                                    &gt;
                                     <Typewriter
-                                        key={logme} // forces re-mount on change
-                                        words={[logme]} loop={1}
+                                        key={[logme]} // forces re-mount on change
+                                        words={[logme, "Hello!:)"]} loop={0}
                                         typeSpeed={100}
+                                        delaySpeed={5000}
                                     ></Typewriter>
                                 </p>
                             </div>
@@ -167,12 +198,19 @@ function TenkiTomo() {
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
 
                                 {keys.map((key, index) => (
-                                    <p key={key} data-bs-toggle="tooltip" data-bs-placement="right"
+                                    <p className={`text-${getStatusColor(weatherFeatures[key].status)}`}
+                                        key={key} data-bs-toggle="tooltip" data-bs-placement="right"
                                         data-bs-custom-class="custom-tooltip"
                                         data-bs-title={weatherMeta[key].tooltip}>
-                                        {weatherMeta[key].label}{weatherFeatures[key]}{weatherMeta[key].unit}
+                                        {getStatusIcon(weatherFeatures[key].status)}
+                                        {weatherMeta[key].label}{weatherFeatures[key].value}{weatherMeta[key].unit}
                                     </p>
                                 ))}
+                            </div>
+                        </div>
+
+                        <div className='col-12'>
+                            <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
                                 <p>
                                     {recommendation ? `Drying Time: ${recommendation.drying_time_hours}hrs` : "-"}
                                 </p>
@@ -181,8 +219,8 @@ function TenkiTomo() {
                         </div>
 
                         <div className='col-12'>
-                            <button onClick={() => handleClickCheckReco()} className='btn btn-light border border-2 border-black rounded-4 w-100'>
-                                Ask TenkiTomo
+                            <button onClick={() => handleClickCheckReco()} className='btn btn-primary border border-2 border-black rounded-4 w-100'>
+                                Can I do laundry today?
                             </button>
                         </div>
                     </div>

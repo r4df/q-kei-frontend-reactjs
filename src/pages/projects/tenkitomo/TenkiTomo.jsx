@@ -3,11 +3,7 @@ import ContainerType1 from '../../../component/ContainerType1'
 import axios from 'axios'
 import * as bootstrap from 'bootstrap'; // // <-- This gives access to bootstrap.Tooltip
 
-const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const API_URL = process.env.REACT_APP_API_URL;
-const LAT = '35.6895'; // Tokyo
-const LON = '139.6917';
-
 
 const DEFAULT_FEATURE = {
     uv_index: 0,
@@ -25,68 +21,36 @@ function TenkiTomo() {
         return () => {
             tooltipList.forEach(tooltip => tooltip.dispose());
         };
-    }, []);
 
+    }, []);
+    const [logme, setLogme] = useState("---")
     const [weatherFeatures, setWeatherFeatures] = useState(DEFAULT_FEATURE)
     const [recommendation, setRecommendation] = useState(null)
 
-    const calculateDewPtFeature = (temperature_c, humidity) => {
-        // Magnus formula (simplified version) -> Dont ask I dont know this formula
-        const a = 17.27
-        const b = 237.7
-        const alpha = ((a * temperature_c) / (b + temperature_c)) + Math.log(humidity / 100)
-        const dewPoint = (b * alpha) / (a - alpha);
-        return dewPoint.toFixed(1)
-    }
 
-    const convertWindSpeedKphToMps = (wind_kph) => {
-        const windSpeedMps = wind_kph / 3.
-        return windSpeedMps.toFixed(1)
-    }
-
-    const getWeatherFeature = async () => {
-        const response = await axios.get(
-            `https://api.weatherapi.com/v1/current.json`,
-            {
-                params: {
-                    key: WEATHER_API_KEY,
-                    q: "Tokyo"
-                }
+    const getUserLocation = () => {
+        return new Promise((resolve, reject) => {
+            if (!navigator.geolocation) {
+                reject("Geolocation not supported")
+            } else {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords
+                        resolve({ latitude, longitude })
+                    },
+                    () => {
+                        reject("Unable to retrieve your location")
+                    }
+                )
             }
-        )
-        const data = response.data;
-
-        // Calculate dewPoint
-        const windSpeedMps = convertWindSpeedKphToMps(data.current.wind_kph)
-        const dewPoint = calculateDewPtFeature(data.current.temp_c, data.current.humidity)
-
-        const features = {
-            uv_index: data.current.uv,
-            cloud_cover: data.current.cloud,
-            humidity: data.current.humidity,
-            temperature: data.current.temp_c,
-            dew_point: dewPoint,
-            wind_speed: windSpeedMps
-        }
-
-        // const features = {
-        //     uv_index: 11,
-        //     cloud_cover: 40,
-        //     humidity: data.current.humidity,
-        //     temperature: 11,
-        //     dew_point: dewPoint,
-        //     wind_speed: windSpeedMps
-        // }
-
-        setWeatherFeatures(features)
-        return features
+        })
     }
 
     const handleClickCheckReco = async () => {
-        const feature = await getWeatherFeature()
-        const response = await axios.post(`${API_URL}/api/proj/tenkitomo/predict`, feature)
-        const data = response.data;
-        setRecommendation(data)
+        const location = await getUserLocation()
+        const response = await axios.post(`${API_URL}/api/proj/tenkitomo/predict`, location)
+        setWeatherFeatures(response.data.weather_feature)
+        setRecommendation(response.data)
         return 0
     }
 
@@ -128,6 +92,14 @@ function TenkiTomo() {
                     <div className='row mb-2'>
                         <div className='col-12'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
+                                <p className=''>{logme}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='row mb-2'>
+                        <div className='col-12'>
+                            <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
                                 <p data-bs-toggle="tooltip" data-bs-placement="right"
                                     data-bs-custom-class="custom-tooltip"
                                     data-bs-title="Higher temperatures help clothes dry faster by speeding up evaporation.">
@@ -164,10 +136,9 @@ function TenkiTomo() {
                     </div>
 
                     <div className='row'>
-
                         <div className='col-12'>
                             <button onClick={() => handleClickCheckReco()} className='btn btn-light border border-2 border-black rounded-4 w-100'>
-                            Is It a Good Laundry Day? 🤔
+                                Is It a Good Laundry Day? 🤔
                             </button>
                         </div>
                     </div>

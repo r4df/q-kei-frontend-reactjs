@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Typewriter } from 'react-simple-typewriter'
 import ContainerType1 from '../../../component/ContainerType1'
 import axios from 'axios'
 import * as bootstrap from 'bootstrap'; // // <-- This gives access to bootstrap.Tooltip
@@ -14,6 +15,40 @@ const DEFAULT_FEATURE = {
     wind_speed: 0
 }
 
+const weatherMeta = {
+    temperature: {
+        label: 'Temp.:',
+        unit: '°C',
+        tooltip: 'Higher temperatures help clothes dry faster by speeding up evaporation.'
+    },
+    humidity: {
+        label: 'Humidity:',
+        unit: '%',
+        tooltip: 'High humidity slows down drying since the air holds more moisture.'
+    },
+    uv_index: {
+        label: 'UV Index:',
+        unit: '',
+        tooltip: 'Strong sunlight helps dry clothes faster and can also kill germs.'
+    },
+    cloud_cover: {
+        label: 'Cloud Cover:',
+        unit: '%',
+        tooltip: 'Cloudy skies reduce sunlight, making clothes dry slower.'
+    },
+    wind_speed: {
+        label: 'Wind Spd.:',
+        unit: 'm/s',
+        tooltip: 'A good breeze can help carry away moisture, speeding up drying.'
+    },
+    dew_point: {
+        label: 'Dew Pt.:',
+        unit: '°C',
+        tooltip: 'When the dew point is close to the air temperature, drying becomes slower.'
+    }
+};
+
+
 function TenkiTomo() {
     useEffect(() => {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -23,10 +58,13 @@ function TenkiTomo() {
         };
 
     }, []);
-    const [logme, setLogme] = useState("---")
+
+
+
+    const keys = Object.keys(weatherMeta);
+    const [logme, setLogme] = useState("???")
     const [weatherFeatures, setWeatherFeatures] = useState(DEFAULT_FEATURE)
     const [recommendation, setRecommendation] = useState(null)
-
 
     const getUserLocation = () => {
         return new Promise((resolve, reject) => {
@@ -46,11 +84,11 @@ function TenkiTomo() {
         })
     }
 
-    const handleClickCheckReco = async () => {     
+    const handleClickCheckReco = async () => {
         const location = await getUserLocation()
         const response = await axios.post(`${API_URL}/api/proj/tenkitomo/predict`, location)
 
-        setLogme(`Loc. : LAT=${location.latitude.toFixed(1)}, LON=${location.longitude.toFixed(1)}`)
+        setLogme(`${location.latitude.toFixed(1)}, ${location.longitude.toFixed(1)}`)
         setWeatherFeatures(response.data.weather_feature)
         setRecommendation(response.data)
         return 0
@@ -61,15 +99,23 @@ function TenkiTomo() {
             if (recommendation.recommendation) {
                 return (
                     <div>
-                        <p className='text-success'>Yes, do your laundry!<i className="bi bi-sun-fill ms-2"></i> </p>
-                        <p>Drying Time: {recommendation.drying_time_hours}hrs</p>
+                        <p className='text-success'>
+                            <Typewriter
+                                words={["Yes, do your laundry!"]}
+                                loop={1} cursor cursorStyle='_' ypeSpeed={100}
+                            ></Typewriter>
+                        </p>
                     </div>
                 )
             } else {
                 return (
                     <div>
-                        <p className='text-danger'>Not a good time.<i className="bi bi-cloud-rain-fill ms-2"></i></p>
-                        <p>Drying Time: {recommendation.drying_time_hours}hrs</p>
+                        <p className='text-danger'>
+                            <Typewriter
+                                words={["Not a good time."]}
+                                loop={1} cursor cursorStyle='_' ypeSpeed={100}
+                            ></Typewriter>
+                        </p>
                     </div>
                 )
             }
@@ -77,11 +123,13 @@ function TenkiTomo() {
             return (
                 <div>
                     <p className='text-danger'>-</p>
-                    <p>-</p>
                 </div>
             )
         }
     }
+
+
+
 
     return (
         <div>
@@ -94,7 +142,17 @@ function TenkiTomo() {
                     <div className='row mb-2'>
                         <div className='col-12'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
-                                <p className='m-0'>{logme}</p>
+                                <p className='m-0'>
+                                    Loc. :
+                                </p>
+                                <p className='m-0'>
+                                    @
+                                    <Typewriter
+                                        key={logme} // forces re-mount on change
+                                        words={[logme]} loop={1}
+                                        typeSpeed={100}
+                                    ></Typewriter>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -102,35 +160,16 @@ function TenkiTomo() {
                     <div className='row mb-2'>
                         <div className='col-12'>
                             <div className='border border-2 border-black rounded-4 bg-dark-subtle p-3'>
-                                <p data-bs-toggle="tooltip" data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Higher temperatures help clothes dry faster by speeding up evaporation.">
-                                    Temp. : {weatherFeatures.temperature}°C
-                                </p>
-                                <p data-bs-toggle="tooltip" data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="High humidity slows down drying since the air holds more moisture.">
-                                    Humidity : {weatherFeatures.humidity}%
-                                </p>
-                                <p data-bs-toggle="tooltip" data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Strong sunlight helps dry clothes faster and can also kill germs.">
-                                    UV Index : {weatherFeatures.uv_index}
-                                </p>
-                                <p data-bs-toggle="tooltip" data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Cloudy skies reduce sunlight, making clothes dry slower.">
-                                    Cloud Cover : {weatherFeatures.cloud_cover}%
-                                </p>
-                                <p data-bs-toggle="tooltip" data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="A good breeze can help carry away moisture, speeding up drying.">
-                                    Wind Spd. : {weatherFeatures.wind_speed}m/s
-                                </p>
-                                <p data-bs-toggle="tooltip" data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="When the dew point is close to the air temperature, drying becomes slower.">
-                                    Dew Pt. : {weatherFeatures.dew_point}°C
+
+                                {keys.map((key, index) => (
+                                    <p key={key} data-bs-toggle="tooltip" data-bs-placement="right"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title={weatherMeta[key].tooltip}>
+                                        {weatherMeta[key].label}{weatherFeatures[key]}{weatherMeta[key].unit}
+                                    </p>
+                                ))}
+                                <p>
+                                    {recommendation ?`Drying Time: ${recommendation.drying_time_hours}hrs` :"-"}
                                 </p>
                                 {dispRecommendation()}
                             </div>
